@@ -1,7 +1,9 @@
 #******************************************************************************
-# This makefile was modified to work on Eridani an LM3S3651 based board
+# This makefile was modified to work on Procyon an LM3S9B9x based board
 # The author imposes no change in the licence from TI below
 # The software remains AS IS with no Warranty
+#
+# Updated for StellarisWare 8264
 #
 # Makefile - Rules for building the USB host mass storage example.
 #
@@ -25,13 +27,11 @@
 #
 #******************************************************************************
 
-#
-# Defines the part type that this project uses.
-#
-PART=LM3S9B90
-
 #Program name
 NAME = usb_host_msc
+
+# Defines the part type that this project uses.
+PART=PART_LM3S9B90
 
 #include the toolchain settings 
 include $.../toolchainsettings
@@ -152,12 +152,12 @@ ${COMPILER}/usb_host_msc.axf: ${COMPILER}/ff.o
 ${COMPILER}/usb_host_msc.axf: ${COMPILER}/startup_${COMPILER}.o
 ${COMPILER}/usb_host_msc.axf: ${COMPILER}/uartstdio.o
 ${COMPILER}/usb_host_msc.axf: ${COMPILER}/usb_host_msc.o
-${COMPILER}/usb_host_msc.axf: ${ROOT}/usblib/${COMPILER}/libusb.a
-${COMPILER}/usb_host_msc.axf: ${ROOT}/driverlib/${COMPILER}/libdriver.a
+${COMPILER}/usb_host_msc.axf: ${ROOT}/usblib/${COMPILER}-cm3/libusb-cm3.a
+${COMPILER}/usb_host_msc.axf: ${ROOT}/driverlib/${COMPILER}-cm3/libdriver-cm3.a
 ${COMPILER}/usb_host_msc.axf: $(LINKER)
 SCATTERgcc_usb_host_msc=$(LINKER)
 ENTRY_usb_host_msc=ResetISR
-CFLAGSgcc=-DTARGET_IS_TEMPEST_RC5 -DBUILD_STANDALONE
+CFLAGSgcc=-DTARGET_IS_TEMPEST_RC5 -DBUILD_STANDALONE -D$(PART)
 
 #
 # Include the automatically generated dependency files.

@@ -3,6 +3,9 @@
 
 NAME = blinky
 
+# Defines the part type that this project uses.
+PART=PART_LM3S9B90
+
 #include the toolchain settings 
 include $.../toolchainsettings
 
@@ -67,7 +70,7 @@ CP      = arm-none-eabi-objcopy
 OD	= arm-none-eabi-objdump
 
 
-MACROS  = -DTARGET_IS_TEMPESTRC5
+MACROS  = -DTARGET_IS_TEMPESTRC5 -D$(PART)
 CFLAGS  =  -I./ -I$(DIR_STELLARISWARE) -std=c99 -fno-common -Os -g -mcpu=cortex-m3 -mthumb 
 LFLAGS  = -T $(LINKER) -nostartfiles
 CPFLAGS = -Obinary
@@ -75,7 +78,7 @@ ODFLAGS	= -D
 
 SOURCES = \
 	$(NAME).c startup_gcc.c\
-	$(DIR_DRIVERLIB)/gcc/libdriver.a\
+	$(DIR_DRIVERLIB)/gcc-cm3/libdriver-cm3.a\
 
 all: reg
 

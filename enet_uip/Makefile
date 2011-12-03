@@ -1,3 +1,6 @@
+# Modified to work with Procyon by tehoLabs
+# Updated to work with StellarisWare 8264 12/2011
+
 #******************************************************************************
 #
 # Makefile - Rules for building the Ethernet with uIP.
@@ -25,7 +28,7 @@
 #
 # Defines the part type that this project uses.
 #
-PART=LM3S9B90
+PART=PART_LM3S9B90
 
 #Program name
 NAME = enet_uip
@@ -156,11 +159,11 @@ ${COMPILER}/enet_uip.axf: ${COMPILER}/uip.o
 ${COMPILER}/enet_uip.axf: ${COMPILER}/uip_arp.o
 ${COMPILER}/enet_uip.axf: ${COMPILER}/uip_timer.o
 ${COMPILER}/enet_uip.axf: ${COMPILER}/ustdlib.o
-${COMPILER}/enet_uip.axf: ${ROOT}/driverlib/${COMPILER}/libdriver.a
+${COMPILER}/enet_uip.axf: ${ROOT}/driverlib/${COMPILER}-cm3/libdriver-cm3.a
 ${COMPILER}/enet_uip.axf: $(LINKER)
 SCATTERgcc_enet_uip=$(LINKER)
 ENTRY_enet_uip=ResetISR
-CFLAGSgcc=-DTARGET_IS_TEMPEST_RC5
+CFLAGSgcc=-DTARGET_IS_TEMPEST_RC5 -D$(PART)
 
 #
 # Include the automatically generated dependency files.
